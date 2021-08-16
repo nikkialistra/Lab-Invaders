@@ -14,19 +14,20 @@ namespace Entities.Hero
         [Space]
         [SerializeField] private float _minGroundNormalY = .65f;
         [SerializeField] private float _gravityModifier = 1f;
+        [Space]
+        [SerializeField] private float _minMoveDistance = 0.001f;
+        [SerializeField] private float _minFallDistance;
+        [SerializeField] private float _shellRadius = 0.01f;
 
         private float _horizontalMove;
         private Vector2 _velocity;
         
         private bool _grounded;
         private Vector2 _groundNormal;
-        
-        private Rigidbody2D _rigidBody;
-        
-        private RaycastHit2D[] _hitBuffer = new RaycastHit2D[16];
 
-        private const float _minMoveDistance = 0.001f;
-        private const float _shellRadius = 0.01f;
+        private Rigidbody2D _rigidBody;
+
+        private RaycastHit2D[] _hitBuffer = new RaycastHit2D[16];
 
         private Animations _animations;
 
@@ -101,15 +102,15 @@ namespace Entities.Hero
         private void MoveByAxis(Vector2 move, bool vertical)
         {
             var distance = move.magnitude;
-
             if (distance < _minMoveDistance)
             {
                 return;
             }
             
             distance = CalculateCollisions(distance, move, vertical);
-
-            _rigidBody.position = _rigidBody.position + move.normalized * distance;
+            var deltaPosition = move.normalized * distance;
+            FallIfNeeded(deltaPosition.y);
+            _rigidBody.position = _rigidBody.position + deltaPosition;
         }
 
         private float CalculateCollisions(float distance, Vector2 move, bool vertical)
@@ -142,12 +143,26 @@ namespace Entities.Hero
             return distance;
         }
 
+        private void FallIfNeeded(float deltaYPosition)
+        {
+            if (deltaYPosition < _minFallDistance)
+            {
+                _animations.Fall();
+            }
+            else
+            {
+                _animations.Land();
+            }
+        }
+
         private void Jump(InputAction.CallbackContext context)
         {
-            if (_grounded)
+            if (!_grounded)
             {
-                _velocity.y = _jumpVelocity;
+                return;
             }
+            _velocity.y = _jumpVelocity;
+            _animations.Jump();
         }
     }
 }

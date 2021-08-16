@@ -2255,6 +2255,9 @@ MonoBehaviour:
   _jumpVelocity: 8
   _minGroundNormalY: 0.65
   _gravityModifier: 1
+  _minMoveDistance: 0.001
+  _minFallDistance: -0.01
+  _shellRadius: 0.01
 --- !u!95 &1523749403
 Animator:
   serializedVersion: 3
