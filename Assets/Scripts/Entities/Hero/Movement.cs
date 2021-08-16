@@ -3,6 +3,7 @@ using UnityEngine.InputSystem;
 
 namespace Entities.Hero
 {
+    [RequireComponent(typeof(Animations))]
     [RequireComponent(typeof(Rigidbody2D))]
     [RequireComponent(typeof(PlayerInput))]
     public class Movement : MonoBehaviour
@@ -10,6 +11,8 @@ namespace Entities.Hero
         [SerializeField] private float _speed;
         [SerializeField] private float _jumpForce;
 
+        private Animations _animations;
+        
         private Rigidbody2D _rigidBody;
 
         private float _moveDirection;
@@ -20,9 +23,10 @@ namespace Entities.Hero
 
         private void Awake()
         {
+            _animations = GetComponent<Animations>();
             _rigidBody = GetComponent<Rigidbody2D>();
-            
             _input = GetComponent<PlayerInput>();
+            
             _moveAction = _input.actions.FindAction("Move");
             _jumpAction = _input.actions.FindAction("Jump");
         }
@@ -48,11 +52,21 @@ namespace Entities.Hero
             {
                 Move();
             }
+            else
+            {
+                Stay();
+            }
         }
 
         private void Move()
         {
-            _rigidBody.velocity = new Vector2(_moveDirection, 0) * (_speed * Time.fixedDeltaTime);
+            _animations.Run(_moveDirection);
+            _rigidBody.velocity = new Vector2(_moveDirection * _speed, _rigidBody.velocity.y);
+        }
+
+        private void Stay()
+        {
+            _animations.Stay();
         }
 
         private void Jump(InputAction.CallbackContext context)
