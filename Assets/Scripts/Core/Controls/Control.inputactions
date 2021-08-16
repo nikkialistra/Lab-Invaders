@@ -9,7 +9,7 @@
                     "name": "Move",
                     "type": "Value",
                     "id": "375177e0-cd06-411a-9ece-e4f061e2b1b5",
-                    "expectedControlType": "Integer",
+                    "expectedControlType": "Analog",
                     "processors": "",
                     "interactions": ""
                 },

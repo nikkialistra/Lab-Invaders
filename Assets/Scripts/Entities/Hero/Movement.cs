@@ -61,7 +61,7 @@ namespace Entities.Hero
         private void Move()
         {
             _animations.Run(_moveDirection);
-            _rigidBody.velocity = new Vector2(_moveDirection * _speed, _rigidBody.velocity.y);
+            _rigidBody.MovePosition(_rigidBody.position + new Vector2(_moveDirection * _speed * Time.fixedDeltaTime, 0));
         }
 
         private void Stay()
