@@ -109,8 +109,9 @@ namespace Entities.Hero
             
             distance = CalculateCollisions(distance, move, vertical);
             var deltaPosition = move.normalized * distance;
-            FallIfNeeded(deltaPosition.y);
             _rigidBody.position = _rigidBody.position + deltaPosition;
+            
+            FallIfNeeded(deltaPosition.y);
         }
 
         private float CalculateCollisions(float distance, Vector2 move, bool vertical)
