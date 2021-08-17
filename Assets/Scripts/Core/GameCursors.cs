@@ -7,8 +7,8 @@ namespace Core
     {
         [SerializeField] private SpriteRenderer _mainCursor;
         [SerializeField] private SpriteRenderer _auxiliaryCursor;
-        [Range(0, 1)]
-        [SerializeField] private float _auxialiaryCursorOffset;
+        [Space]
+        [SerializeField] private float _auxiliaryCursorOffset;
         [Space] 
         [SerializeField] private Camera _camera;
         [SerializeField] private Transform _heroTransform;
@@ -40,9 +40,16 @@ namespace Core
 
         private void PlaceAuxiliaryCursor()
         {
-            var delta = _cursorPosition - _heroTransform.position;
-            var offset = delta * _auxialiaryCursorOffset;
-            _auxiliaryCursor.transform.position = _cursorPosition - offset;
+            var heroToCursor = _cursorPosition - _heroTransform.position;
+            if (heroToCursor.magnitude <= 1)
+            {
+                _auxiliaryCursor.transform.position = _heroTransform.position;
+            }
+            else
+            {
+                var offset = heroToCursor.normalized * _auxiliaryCursorOffset;
+                _auxiliaryCursor.transform.position = _cursorPosition - offset;
+            }
         }
     }
 }
