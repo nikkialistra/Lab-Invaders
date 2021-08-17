@@ -1,76 +1,70 @@
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 namespace Entities.Hero
 {
+    [RequireComponent(typeof(Dashes))]
     [RequireComponent(typeof(Animations))]
     [RequireComponent(typeof(Rigidbody2D))]
-    [RequireComponent(typeof(PlayerInput))]
     public class Movement : MonoBehaviour
     {
         [SerializeField] private float _speed;
-        [SerializeField] private float _jumpVelocity;
         [Space]
         [SerializeField] private float _minGroundNormalY = .65f;
         [SerializeField] private float _gravityModifier = 1f;
         [Space]
         [SerializeField] private float _minMoveDistance = 0.001f;
-        [SerializeField] private float _minFallDistance;
+        [SerializeField] private float _minFallDistance = -0.01f;
         [SerializeField] private float _shellRadius = 0.01f;
 
-        private float _horizontalMove;
+        private float _floorMove;
+        
         private Vector2 _velocity;
         
         private bool _grounded;
         private Vector2 _groundNormal;
-
-        private Rigidbody2D _rigidBody;
-
-        private RaycastHit2D[] _hitBuffer = new RaycastHit2D[16];
-
+        
+        private Dashes _dashes;
         private Animations _animations;
-
-        private PlayerInput _input;
-        private InputAction _moveAction;
-        private InputAction _jumpAction;
+        
+        private Rigidbody2D _rigidBody;
+        private readonly RaycastHit2D[] _hitBuffer = new RaycastHit2D[16];
 
         private void Awake()
         {
+            _dashes = GetComponent<Dashes>();
             _animations = GetComponent<Animations>();
             _rigidBody = GetComponent<Rigidbody2D>();
-            _input = GetComponent<PlayerInput>();
-            
-            _moveAction = _input.actions.FindAction("Move");
-            _jumpAction = _input.actions.FindAction("Jump");
         }
 
-        private void OnEnable()
+        public void Move(Vector2 moveDirection)
         {
-            _jumpAction.started += Jump;
-        }
-
-        private void OnDisable()
-        {
-            _jumpAction.started -= Jump;
-        }
-
-        private void Update()
-        {
-            _horizontalMove = _moveAction.ReadValue<float>() * _speed;
-            UpdateAnimation();
-        }
-
-        private void UpdateAnimation()
-        {
-            if (_horizontalMove != 0)
+            if (_grounded)
             {
-                _animations.Run(_horizontalMove);
+                MoveAcrossFloor(moveDirection.x);
+            }
+            else
+            {
+                MoveAcrossWall(moveDirection);
+            }
+        }
+
+        private void MoveAcrossFloor(float floorMove)
+        {
+            _floorMove = floorMove * _speed;
+            
+            if (_floorMove != 0)
+            {
+                _animations.Run(_floorMove);
             }
             else
             {
                 _animations.Stay();
             }
+        }
+
+        private void MoveAcrossWall(Vector2 wallMove)
+        {
+            Debug.Log("wall");
         }
 
         private void FixedUpdate()
@@ -82,7 +76,7 @@ namespace Entities.Hero
         private void ComputeVelocity()
         {
             _velocity += Physics2D.gravity * (_gravityModifier * Time.deltaTime);
-            _velocity.x = _horizontalMove;
+            _velocity.x = _floorMove;
         }
 
         private void Move()
@@ -156,14 +150,9 @@ namespace Entities.Hero
             }
         }
 
-        private void Jump(InputAction.CallbackContext context)
+        public void Dash()
         {
-            if (!_grounded)
-            {
-                return;
-            }
-            _velocity.y = _jumpVelocity;
-            _animations.Jump();
+            _dashes.Dash();
         }
     }
 }

@@ -170,7 +170,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _mainCursor: {fileID: 477363628}
   _auxiliaryCursor: {fileID: 483423515}
-  _auxialiaryCursorOffset: 0.15
+  _auxiliaryCursorOffset: 1
   _camera: {fileID: 519420031}
   _heroTransform: {fileID: 1523749398}
 --- !u!1 &439636113

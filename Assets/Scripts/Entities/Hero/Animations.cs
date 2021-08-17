@@ -47,8 +47,9 @@ namespace Entities.Hero
             _animator.SetBool(_run, false);
         }
 
-        public void Jump()
+        public void Dash(float direction)
         {
+            SetDirection(direction);
             _animator.SetTrigger(_jump);
         }
 

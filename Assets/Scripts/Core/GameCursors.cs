@@ -9,7 +9,7 @@ namespace Core
         [SerializeField] private SpriteRenderer _auxiliaryCursor;
         [Space]
         [SerializeField] private float _auxiliaryCursorOffset;
-        [Space] 
+        [Space]
         [SerializeField] private Camera _camera;
         [SerializeField] private Transform _heroTransform;
 

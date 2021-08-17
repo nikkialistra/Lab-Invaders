@@ -9,12 +9,12 @@
                     "name": "Move",
                     "type": "Value",
                     "id": "375177e0-cd06-411a-9ece-e4f061e2b1b5",
-                    "expectedControlType": "Analog",
+                    "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": ""
                 },
                 {
-                    "name": "Jump",
+                    "name": "Dash",
                     "type": "Button",
                     "id": "de0eb146-15bf-49d5-b3f1-d627755219a3",
                     "expectedControlType": "Button",
@@ -24,9 +24,9 @@
             ],
             "bindings": [
                 {
-                    "name": "1D Axis",
+                    "name": "2D Vector",
                     "id": "7bd01d69-fc15-4e0c-8caf-794c67565055",
-                    "path": "1DAxis",
+                    "path": "2DVector",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -35,7 +35,7 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "negative",
+                    "name": "Up",
                     "id": "32b9f247-deba-44a6-86e4-9795212bb3d7",
                     "path": "<Keyboard>/a",
                     "interactions": "",
@@ -46,8 +46,30 @@
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "positive",
+                    "name": "Down",
                     "id": "86f8ae91-c8ce-4d9b-8643-27028b186e10",
+                    "path": "<Keyboard>/d",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "Left",
+                    "id": "0c06acc4-1cd2-4d1e-82d0-858e2b039553",
+                    "path": "<Keyboard>/a",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "Right",
+                    "id": "84458f5c-941a-4510-866e-dada05327e7d",
                     "path": "<Keyboard>/d",
                     "interactions": "",
                     "processors": "",
@@ -63,7 +85,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
-                    "action": "Jump",
+                    "action": "Dash",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
