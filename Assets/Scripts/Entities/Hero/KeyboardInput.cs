@@ -16,7 +16,6 @@ namespace Entities.Hero
         private void Awake()
         {
             _movement = GetComponent<Movement>();
-
             _input = GetComponent<PlayerInput>();
             _moveAction = _input.actions.FindAction("Move");
             _dashAction = _input.actions.FindAction("Dash");

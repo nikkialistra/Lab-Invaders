@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace Entities.Hero
@@ -33,6 +34,11 @@ namespace Entities.Hero
             }
         }
 
+        private void FixedUpdate()
+        {
+            _physicsSolving.MoveAcrossDash(_dashes.LastChange);
+        }
+
         public void Move(Vector2 moveDirection)
         {
             if (_physicsSolving.Grounded)
@@ -49,7 +55,11 @@ namespace Entities.Hero
         {
             var distance = move * _speed;
             _physicsSolving.MoveAcrossFloor(distance);
-            
+            UpdateMoveAnimation(move);
+        }
+
+        private void UpdateMoveAnimation(float move)
+        {
             if (move != 0)
             {
                 _animations.Run(move);

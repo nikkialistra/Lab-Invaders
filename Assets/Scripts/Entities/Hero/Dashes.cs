@@ -8,6 +8,8 @@ namespace Entities.Hero
     [RequireComponent(typeof(Rigidbody2D))]
     public class Dashes : MonoBehaviour
     {
+        public Vector2 LastChange { get; private set; }
+        
         [SerializeField] private float _distance;
         [SerializeField] private AnimationCurve _animation;
         [SerializeField] private float _animationTime;
@@ -34,16 +36,35 @@ namespace Entities.Hero
         private IEnumerator AnimateDash(Vector2 direction)
         {
             var time = 0f;
-            var originalPosition = _rigidBody.position;
+            var lastPosition = Vector2.zero;
             while (time <= _animationTime)
             {
-                var progress = time / _animationTime;
-                var delta = _distance * _animation.Evaluate(progress);
-                _rigidBody.position = originalPosition + direction * delta;
-                
+                var position = ComputePosition(direction, time);
+                UpdateLastChange(position, ref lastPosition);
+
                 yield return new WaitForFixedUpdate();
                 time += Time.fixedDeltaTime;
             }
+            StopDash();
+        }
+
+        private Vector2 ComputePosition(Vector2 direction, float time)
+        {
+            var progress = time / _animationTime;
+            var delta = _distance * _animation.Evaluate(progress);
+            var position = direction * delta;
+            return position;
+        }
+
+        private void UpdateLastChange(Vector2 position, ref Vector2 lastPosition)
+        {
+            LastChange = (position - lastPosition) / Time.fixedDeltaTime;
+            lastPosition = position;
+        }
+
+        private void StopDash()
+        {
+            LastChange = Vector2.zero;
             _animations.StopDash();
         }
 

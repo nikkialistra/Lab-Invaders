@@ -15,7 +15,8 @@ namespace Entities.Hero
         public bool Grounded { get; private set; }
         public bool Falling { get; private set; }
 
-        private float _distance;
+        private float _floorMove;
+        private Vector2 _dashMove;
         
         private Vector2 _velocity;
         
@@ -35,15 +36,46 @@ namespace Entities.Hero
             Move();
         }
 
-        public void MoveAcrossFloor(float distance)
+        public void MoveAcrossFloor(float floorDistance)
         {
-            _distance = distance;
+            _floorMove = floorDistance;
+        }
+
+        public void MoveAcrossDash(Vector2 dashDistance)
+        {
+            _dashMove = dashDistance;
         }
 
         private void ComputeVelocity()
         {
+            AddFloorMove();
+            if (_dashMove != Vector2.zero)
+            {
+                AddDashMove();
+            }
+            else
+            {
+                AddGravity();
+            }
+        }
+
+        private void AddFloorMove()
+        {
+            _velocity.x = _floorMove;
+        }
+
+        private void AddDashMove()
+        {
+            _velocity = _dashMove;
+        }
+
+        private void AddGravity()
+        {
+            if (_velocity.y > 0)
+            {
+                _velocity.y = 0;
+            }
             _velocity += Physics2D.gravity * (_gravityModifier * Time.deltaTime);
-            _velocity.x = _distance;
         }
 
         private void Move()
@@ -55,7 +87,7 @@ namespace Entities.Hero
 
             var horizontalMove = moveAlongGround * deltaPosition.x;
             MoveByAxis(horizontalMove, vertical: false);
-
+            
             var verticalMove = Vector2.up * deltaPosition.y;
             MoveByAxis(verticalMove, vertical: true);
         }
