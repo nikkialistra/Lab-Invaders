@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Entities.Hero.Animation
+namespace Entities.Hero
 {
     [RequireComponent(typeof(Animator))]
     [RequireComponent(typeof(SpriteRenderer))]

@@ -44,17 +44,23 @@ TagManager:
   - name: Background
     uniqueID: 1334116055
     locked: 0
+  - name: BackgroundSpikes
+    uniqueID: 3882548109
+    locked: 0
   - name: Decor
     uniqueID: 4235189417
     locked: 0
   - name: Mobs
     uniqueID: 3380657519
     locked: 0
-  - name: Hero
-    uniqueID: 1371163063
-    locked: 0
   - name: Foreground
     uniqueID: 888926375
+    locked: 0
+  - name: ForegroundSpikes
+    uniqueID: 543607799
+    locked: 0
+  - name: Hero
+    uniqueID: 1371163063
     locked: 0
   - name: Cursors
     uniqueID: 2636462907

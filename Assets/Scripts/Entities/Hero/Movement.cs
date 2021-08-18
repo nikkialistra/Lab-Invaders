@@ -1,4 +1,3 @@
-using Entities.Hero.Animation;
 using UnityEngine;
 
 namespace Entities.Hero

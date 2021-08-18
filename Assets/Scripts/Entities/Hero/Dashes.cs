@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using Entities.Hero.Animation;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
