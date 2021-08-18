@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using Entities.Hero.Animation;
+using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace Entities.Hero
@@ -7,7 +9,10 @@ namespace Entities.Hero
     [RequireComponent(typeof(Rigidbody2D))]
     public class Dashes : MonoBehaviour
     {
-        [SerializeField] private float _velocity;
+        [SerializeField] private float _distance;
+        [SerializeField] private AnimationCurve _animation;
+        [SerializeField] private float _animationTime;
+
         [Space]
         [SerializeField] private Camera _camera;
         
@@ -23,8 +28,24 @@ namespace Entities.Hero
         public void Dash()
         {
             var direction = GetDirection();
-            _rigidBody.velocity = direction * _velocity;
             _animations.Dash(direction.x);
+            StartCoroutine(AnimateDash(direction));
+        }
+
+        private IEnumerator AnimateDash(Vector2 direction)
+        {
+            var time = 0f;
+            var originalPosition = _rigidBody.position;
+            while (time <= _animationTime)
+            {
+                var progress = time / _animationTime;
+                var delta = _distance * _animation.Evaluate(progress);
+                _rigidBody.position = originalPosition + direction * delta;
+                
+                yield return new WaitForFixedUpdate();
+                time += Time.fixedDeltaTime;
+            }
+            _animations.StopDash();
         }
 
         private Vector2 GetDirection()

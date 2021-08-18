@@ -2336,6 +2336,9 @@ GameObject:
   - component: {fileID: 1523749403}
   - component: {fileID: 1523749402}
   - component: {fileID: 1523749404}
+  - component: {fileID: 1523749405}
+  - component: {fileID: 1523749406}
+  - component: {fileID: 1523749407}
   m_Layer: 15
   m_Name: Hero
   m_TagString: Untagged
@@ -2450,11 +2453,11 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 4
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!114 &1523749401
 MonoBehaviour:
@@ -2499,12 +2502,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _speed: 5
-  _jumpVelocity: 15
-  _minGroundNormalY: 0.65
-  _gravityModifier: 1
-  _minMoveDistance: 0.001
-  _minFallDistance: -0.01
-  _shellRadius: 0.01
 --- !u!95 &1523749403
 Animator:
   serializedVersion: 3
@@ -2536,6 +2533,74 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 124f90ab2a514856944d26b7b4da0608, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1523749405
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1523749396}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8bbdbc1ee6b44653abaea6336100a700, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1523749406
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1523749396}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c414fee73af24b8aa7e265ead778ed65, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _distance: 3
+  _animation:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  _animationTime: 0.18
+  _camera: {fileID: 519420031}
+--- !u!114 &1523749407
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1523749396}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cbd152829dab43a28c2ef85b26fd1c9b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _minGroundNormalY: 0.65
+  _gravityModifier: 1
+  _minMoveDistance: 0.001
+  _minFallDistance: -0.03
+  _shellRadius: 0.01
 --- !u!1 &1573853982
 GameObject:
   m_ObjectHideFlags: 0

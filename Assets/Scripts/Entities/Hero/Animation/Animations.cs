@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Entities.Hero
+namespace Entities.Hero.Animation
 {
     [RequireComponent(typeof(Animator))]
     [RequireComponent(typeof(SpriteRenderer))]
@@ -9,8 +9,10 @@ namespace Entities.Hero
         private Animator _animator;
         private SpriteRenderer _spriteRenderer;
 
+        private bool _falling;
+        
         private readonly int _run = Animator.StringToHash("run");
-        private readonly int _jump = Animator.StringToHash("jump");
+        private readonly int _dash = Animator.StringToHash("dash");
         private readonly int _fall = Animator.StringToHash("fall");
 
         private void Awake()
@@ -50,7 +52,12 @@ namespace Entities.Hero
         public void Dash(float direction)
         {
             SetDirection(direction);
-            _animator.SetTrigger(_jump);
+            _animator.SetBool(_dash, true);
+        }
+
+        public void StopDash()
+        {
+            _animator.SetBool(_dash, false);
         }
 
         public void Fall()
