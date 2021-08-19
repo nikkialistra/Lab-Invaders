@@ -36,7 +36,7 @@ namespace Entities.Hero
 
         private void FixedUpdate()
         {
-            _physicsSolving.MoveAcrossDash(_dashes.LastChange);
+            _physicsSolving.MoveAcrossDash(_dashes.CurrentVelocity);
         }
 
         public void Move(Vector2 moveDirection)
@@ -51,18 +51,18 @@ namespace Entities.Hero
             }
         }
 
-        private void MoveAcrossFloor(float move)
+        private void MoveAcrossFloor(float direction)
         {
-            var distance = move * _speed;
-            _physicsSolving.MoveAcrossFloor(distance);
-            UpdateMoveAnimation(move);
+            var velocity = direction * _speed;
+            _physicsSolving.MoveAcrossFloor(velocity);
+            UpdateMoveAnimation(direction);
         }
 
-        private void UpdateMoveAnimation(float move)
+        private void UpdateMoveAnimation(float direction)
         {
-            if (move != 0)
+            if (direction != 0)
             {
-                _animations.Run(move);
+                _animations.Run(direction);
             }
             else
             {
@@ -72,7 +72,7 @@ namespace Entities.Hero
 
         private void MoveAcrossWall(Vector2 wallMove)
         {
-            Debug.Log("wall move");
+            //Debug.Log("wall move");
         }
 
         public void Dash()
