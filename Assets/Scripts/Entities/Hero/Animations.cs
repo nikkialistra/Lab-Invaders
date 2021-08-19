@@ -12,8 +12,10 @@ namespace Entities.Hero
         private bool _falling;
         
         private readonly int _run = Animator.StringToHash("run");
-        private readonly int _dash = Animator.StringToHash("dash");
         private readonly int _fall = Animator.StringToHash("fall");
+        private readonly int _dash = Animator.StringToHash("dash");
+        private readonly int _floorDashX = Animator.StringToHash("floorDashX");
+        private readonly int _floorDashY = Animator.StringToHash("floorDashY");
 
         private void Awake()
         {
@@ -24,16 +26,16 @@ namespace Entities.Hero
         public void Run(float moveDirection)
         {
             _animator.SetBool(_run, true);
-            SetDirection(moveDirection);
+            SetOrientation(moveDirection);
         }
         
-        private void SetDirection(float moveDirection)
+        private void SetOrientation(float orientation)
         {
-            if (moveDirection < 0)
+            if (orientation < 0)
             {
                 Flip(true);
             }
-            if (moveDirection > 0)
+            if (orientation > 0)
             {
                 Flip(false);
             }
@@ -49,10 +51,12 @@ namespace Entities.Hero
             _animator.SetBool(_run, false);
         }
 
-        public void Dash(float direction)
+        public void Dash(Vector2 direction)
         {
-            SetDirection(direction);
+            SetOrientation(direction.x);
             _animator.SetBool(_dash, true);
+            _animator.SetFloat(_floorDashX, direction.x);
+            _animator.SetFloat(_floorDashY, direction.y);
         }
 
         public void StopDash()

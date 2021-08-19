@@ -77,7 +77,10 @@ namespace Entities.Hero
 
         public void Dash()
         {
-            _dashes.Dash();
+            if (_physicsSolving.Grounded)
+            {
+                _dashes.Dash();
+            }
         }
     }
 }

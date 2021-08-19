@@ -31,28 +31,27 @@ namespace Entities.Hero
         public void Dash()
         {
             var direction = GetDirection();
-            _animations.Dash(direction.x);
+            _animations.Dash(direction);
             StartCoroutine(StartDash(direction));
         }
 
         private Vector2 GetDirection()
         {
-            var heroToCursor = GetHeroToCursor();
-            heroToCursor = PruneDirectionsIntoFloor(heroToCursor);
-            heroToCursor = Normalize(heroToCursor);
-            heroToCursor = Align(heroToCursor);
-            heroToCursor = Normalize(heroToCursor);
-            heroToCursor = SetDownDirectionToRight(heroToCursor);
-            return heroToCursor;
+            var direction = GetHeroToCursor();
+            direction = PruneDirectionsIntoFloor(direction);
+            direction = Normalize(direction);
+            direction = Align(direction);
+            direction = Normalize(direction);
+            direction = СhangeExceptionalDirectionToRight(direction);
+            return direction;
         }
 
-        private static Vector2 SetDownDirectionToRight(Vector2 heroToCursor)
+        private static Vector2 СhangeExceptionalDirectionToRight(Vector2 heroToCursor)
         {
             if (heroToCursor == Vector2.zero)
             {
                 heroToCursor = Vector2.right;
             }
-
             return heroToCursor;
         }
 
