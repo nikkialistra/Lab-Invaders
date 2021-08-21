@@ -16,6 +16,9 @@ namespace Entities.Hero
         private readonly int _dash = Animator.StringToHash("dash");
         private readonly int _floorDashX = Animator.StringToHash("floorDashX");
         private readonly int _floorDashY = Animator.StringToHash("floorDashY");
+        private readonly int _wallRun = Animator.StringToHash("wallRun");
+        private readonly int _wallRunX = Animator.StringToHash("wallRunX");
+        private readonly int _wallRunY = Animator.StringToHash("wallRunY");
 
         private void Awake()
         {
@@ -28,7 +31,13 @@ namespace Entities.Hero
             _animator.SetBool(_run, true);
             SetOrientation(moveDirection);
         }
-        
+
+        public void WallRun(float moveDirection)
+        {
+            _animator.SetBool(_wallRun, true);
+            SetOrientation(moveDirection);
+        }
+
         private void SetOrientation(float orientation)
         {
             if (orientation < 0)

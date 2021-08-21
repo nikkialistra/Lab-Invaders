@@ -17,9 +17,10 @@ namespace Entities.Hero
 
         private float _floorVelocity;
         private Vector2 _dashVelocity;
-        
+        private Vector2 _wallVelocity;
+
         private Vector2 _velocity;
-        
+
         private Vector2 _groundNormal;
 
         private Rigidbody2D _rigidBody;
@@ -46,11 +47,19 @@ namespace Entities.Hero
             _dashVelocity = velocity;
         }
 
+        public void MoveAcrossWall(Vector2 velocity)
+        {
+            _wallVelocity = velocity;
+        }
+
         private void ComputeVelocity()
         {
             if (_dashVelocity != Vector2.zero)
             {
                 AddDashVelocity();
+            } else if (_wallVelocity != Vector2.zero)
+            {
+                AddWallVelocity();
             }
             else
             {
@@ -62,6 +71,12 @@ namespace Entities.Hero
         private void AddDashVelocity()
         {
             _velocity = _dashVelocity;
+        }
+
+        private void AddWallVelocity()
+        {
+            // Debug.Log(_velocity);
+            _velocity = _wallVelocity;
         }
 
         private void AddFloorVelocity()

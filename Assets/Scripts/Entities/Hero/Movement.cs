@@ -8,7 +8,8 @@ namespace Entities.Hero
     [RequireComponent(typeof(PhysicsSolving))]
     public class Movement : MonoBehaviour
     {
-        [SerializeField] private float _speed;
+        [SerializeField] private float _floorSpeed;
+        [SerializeField] private float _wallSpeed;
 
         private Dashes _dashes;
         private WallMovement _wallMovement;
@@ -38,6 +39,7 @@ namespace Entities.Hero
         private void FixedUpdate()
         {
             _physicsSolving.MoveAcrossDash(_dashes.CurrentVelocity);
+            _physicsSolving.MoveAcrossWall(_wallMovement.CurrentVelocity);
         }
 
         public void Move(Vector2 moveDirection)
@@ -54,7 +56,7 @@ namespace Entities.Hero
 
         private void MoveAcrossFloor(float direction)
         {
-            var velocity = direction * _speed;
+            var velocity = direction * _floorSpeed;
             _physicsSolving.MoveAcrossFloor(velocity);
             UpdateMoveAnimation(direction);
         }
@@ -71,11 +73,13 @@ namespace Entities.Hero
             }
         }
 
-        private void MoveAcrossWall(Vector2 wallMove)
+        private void MoveAcrossWall(Vector2 direction)
         {
-            if (wallMove != Vector2.zero)
+            if (direction != Vector2.zero)
             {
-                Debug.Log(_wallMovement.IsWallBehind());
+                var velocity = direction * _wallSpeed;
+                _wallMovement.Move(velocity);
+                _dashes.CancelDash();
             }
         }
 

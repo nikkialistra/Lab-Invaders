@@ -1,22 +1,31 @@
 ﻿using UnityEngine;
+using UnityEngine.Tilemaps;
 
 namespace Entities.Hero
 {
-    [RequireComponent(typeof(Rigidbody2D))]
+    [RequireComponent(typeof(Animations))]
     public class WallMovement : MonoBehaviour
     {
-        [SerializeField] private LayerMask _wallMask;
+        [SerializeField] private Tilemap _wallTilemap;
+        
+        public Vector2 CurrentVelocity { get; private set; }
 
-        private Rigidbody2D _rigidBody;
+        private Animations _animations;
 
         private void Awake()
         {
-            _rigidBody = GetComponent<Rigidbody2D>();
+            _animations = GetComponent<Animations>();
         }
 
         public bool IsWallBehind()
         {
-            return Physics2D.OverlapCircle(_rigidBody.position, 1f, _wallMask) != null;
+            return _wallTilemap.GetTile(Vector3Int.FloorToInt(transform.position)) != null;
+        }
+
+        public void Move(Vector2 direction)
+        {
+            CurrentVelocity = direction;
+            _animations.WallRun(direction.x);
         }
     }
 }

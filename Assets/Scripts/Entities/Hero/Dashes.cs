@@ -19,8 +19,11 @@ namespace Entities.Hero
         [Space]
         [SerializeField] private Camera _camera;
 
+        private bool _dashing;
+        
         private Rigidbody2D _rigidBody;
         private Animations _animations;
+        private Coroutine _startDash;
 
         private void Awake()
         {
@@ -30,9 +33,23 @@ namespace Entities.Hero
 
         public void Dash()
         {
+            if (_dashing)
+            {
+                return;
+            }
+            
             var direction = GetDirection();
             _animations.Dash(direction);
-            StartCoroutine(StartDash(direction));
+            _startDash = StartCoroutine(StartDash(direction));
+        }
+
+        public void CancelDash()
+        {
+            if (_dashing)
+            {
+                StopCoroutine(_startDash);
+                StopDash();
+            }
         }
 
         private Vector2 GetDirection()
@@ -84,12 +101,13 @@ namespace Entities.Hero
             {
                 heroToCursor.y = 0;
             }
-
             return heroToCursor;
         }
 
         private IEnumerator StartDash(Vector2 direction)
         {
+            _dashing = true;
+            
             var time = 0f;
             var lastPosition = Vector2.zero;
             while (time <= _time)
@@ -121,6 +139,7 @@ namespace Entities.Hero
         {
             CurrentVelocity = Vector2.zero;
             _animations.StopDash();
+            _dashing = false;
         }
     }
 }
