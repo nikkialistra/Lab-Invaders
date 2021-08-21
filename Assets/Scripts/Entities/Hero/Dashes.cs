@@ -82,7 +82,6 @@ namespace Entities.Hero
         {
             if (heroToCursor.y <= _alignThreshold)
             {
-                Debug.Log(heroToCursor.y);
                 heroToCursor.y = 0;
             }
 

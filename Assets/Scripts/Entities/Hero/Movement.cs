@@ -1,9 +1,9 @@
-using System;
 using UnityEngine;
 
 namespace Entities.Hero
 {
     [RequireComponent(typeof(Dashes))]
+    [RequireComponent(typeof(WallMovement))]
     [RequireComponent(typeof(Animations))]
     [RequireComponent(typeof(PhysicsSolving))]
     public class Movement : MonoBehaviour
@@ -11,13 +11,14 @@ namespace Entities.Hero
         [SerializeField] private float _speed;
 
         private Dashes _dashes;
+        private WallMovement _wallMovement;
         private Animations _animations;
-
         private PhysicsSolving _physicsSolving;
 
         private void Awake()
         {
             _dashes = GetComponent<Dashes>();
+            _wallMovement = GetComponent<WallMovement>();
             _animations = GetComponent<Animations>();
             _physicsSolving = GetComponent<PhysicsSolving>();
         }
@@ -72,7 +73,10 @@ namespace Entities.Hero
 
         private void MoveAcrossWall(Vector2 wallMove)
         {
-            //Debug.Log("wall move");
+            if (wallMove != Vector2.zero)
+            {
+                Debug.Log(_wallMovement.IsWallBehind());
+            }
         }
 
         public void Dash()

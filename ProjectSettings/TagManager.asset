@@ -12,7 +12,7 @@ TagManager:
   - Water
   - UI
   - Background
-  - 
+  - BackgroundWall
   - 
   - Decor
   - 
@@ -43,6 +43,9 @@ TagManager:
     locked: 0
   - name: Background
     uniqueID: 1334116055
+    locked: 0
+  - name: BackgroundWall
+    uniqueID: 961762843
     locked: 0
   - name: BackgroundSpikes
     uniqueID: 3882548109
