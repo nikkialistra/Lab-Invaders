@@ -73,6 +73,11 @@ namespace Entities.Hero
             _animator.SetBool(_dash, false);
         }
 
+        public void StopWallRun()
+        {
+            _animator.SetBool(_wallRun, false);
+        }
+
         public void Fall()
         {
             _animator.SetBool(_fall, true);

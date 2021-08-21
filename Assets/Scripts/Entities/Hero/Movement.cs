@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace Entities.Hero
@@ -24,6 +25,18 @@ namespace Entities.Hero
             _physicsSolving = GetComponent<PhysicsSolving>();
         }
 
+        private void OnEnable()
+        {
+            _physicsSolving.Ground += OnGround;
+            _wallMovement.RunStarted += OnRunStarted;
+        }
+
+        private void OnDisable()
+        {
+            _physicsSolving.Ground -= OnGround;
+            _wallMovement.RunStarted -= OnRunStarted;
+        }
+
         private void Update()
         {
             if (_physicsSolving.Falling)
@@ -42,19 +55,29 @@ namespace Entities.Hero
             _physicsSolving.MoveAcrossWall(_wallMovement.CurrentVelocity);
         }
 
-        public void Move(Vector2 moveDirection)
+        private void OnGround()
+        {
+            _wallMovement.ResetWallRun();
+        }
+
+        private void OnRunStarted()
+        {
+            _dashes.CancelDash();
+        }
+
+        public void Run(Vector2 moveDirection)
         {
             if (_physicsSolving.Grounded)
             {
-                MoveAcrossFloor(moveDirection.x);
+                RunAcrossFloor(moveDirection.x);
             }
             else
             {
-                MoveAcrossWall(moveDirection);
+                RunAcrossWall(moveDirection);
             }
         }
 
-        private void MoveAcrossFloor(float direction)
+        private void RunAcrossFloor(float direction)
         {
             var velocity = direction * _floorSpeed;
             _physicsSolving.MoveAcrossFloor(velocity);
@@ -73,14 +96,15 @@ namespace Entities.Hero
             }
         }
 
-        private void MoveAcrossWall(Vector2 direction)
+        private void RunAcrossWall(Vector2 direction)
         {
-            if (direction != Vector2.zero)
+            if (direction == Vector2.zero)
             {
-                var velocity = direction * _wallSpeed;
-                _wallMovement.Move(velocity);
-                _dashes.CancelDash();
+                return;
             }
+
+            var velocity = direction * _wallSpeed;
+            _wallMovement.TryRun(velocity);
         }
 
         public void Dash()

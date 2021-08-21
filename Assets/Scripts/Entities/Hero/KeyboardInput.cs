@@ -39,7 +39,7 @@ namespace Entities.Hero
         private void ReadMoveDirection()
         {
             var moveDirection = _moveAction.ReadValue<Vector2>();
-            _movement.Move(moveDirection);
+            _movement.Run(moveDirection);
         }
 
         private void Dash(InputAction.CallbackContext context)

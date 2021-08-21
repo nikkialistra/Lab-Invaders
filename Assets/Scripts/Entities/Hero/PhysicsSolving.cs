@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace Entities.Hero
 {
@@ -11,6 +12,8 @@ namespace Entities.Hero
         [SerializeField] private float _minMoveDistance = 0.001f;
         [SerializeField] private float _minFallDistance = -0.03f;
         [SerializeField] private float _shellRadius = 0.01f;
+
+        public Action Ground;
 
         public bool Grounded { get; private set; }
         public bool Falling { get; private set; }
@@ -137,6 +140,7 @@ namespace Entities.Hero
                 if (currentNormal.y > _minGroundNormalY)
                 {
                     Grounded = true;
+                    Ground?.Invoke();
                     if (vertical)
                     {
                         _groundNormal = currentNormal;

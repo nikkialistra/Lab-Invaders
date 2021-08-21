@@ -21361,6 +21361,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _wallTilemap: {fileID: 562473040}
+  _timeToRun: 1
 --- !u!1 &1897311209
 GameObject:
   m_ObjectHideFlags: 0
