@@ -21361,6 +21361,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _wallTilemap: {fileID: 562473040}
+  _upSpeedMultiplier: 0.1
+  _downSpeedMultiplier: 1.5
   _timeToRun: 1.2
   _timeToStay: 0.35
   _stayFallSpeed: {x: 0, y: -0.1}

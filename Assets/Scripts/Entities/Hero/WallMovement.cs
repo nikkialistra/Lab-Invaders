@@ -8,6 +8,9 @@ namespace Entities.Hero
     public class WallMovement : MonoBehaviour
     {
         [SerializeField] private Tilemap _wallTilemap;
+        [Space] 
+        [SerializeField] private float _upSpeedMultiplier;
+        [SerializeField] private float _downSpeedMultiplier;
         [Space]
         [SerializeField] private float _timeToRun;
         [SerializeField] private float _timeToStay;
@@ -41,10 +44,24 @@ namespace Entities.Hero
             {
                 StartRun();
             }
-            CurrentVelocity = direction;
-            _animations.WallRun(CurrentVelocity);
+
+            _animations.WallRun(direction);
+            ComputeVelocity(direction);
             _stayStartTime = float.MaxValue;
             FinishRunUnderConditions();
+        }
+
+        private void ComputeVelocity(Vector2 direction)
+        {
+            if (direction.y > 0)
+            {
+                direction.y *= _upSpeedMultiplier;
+            }
+            if (direction.y < 0)
+            {
+                direction.y *= _downSpeedMultiplier;
+            }
+            CurrentVelocity = direction;
         }
 
         public void TryStayAtRun()
@@ -59,8 +76,8 @@ namespace Entities.Hero
                 _stayStartTime = Time.time;
             }
 
+            _animations.WallRun(_stayFallSpeed);
             CurrentVelocity = _stayFallSpeed;
-            _animations.WallRun(CurrentVelocity);
             FinishRunUnderConditions();
         }
 
