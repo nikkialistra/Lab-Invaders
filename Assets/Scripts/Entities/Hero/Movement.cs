@@ -98,13 +98,15 @@ namespace Entities.Hero
 
         private void RunAcrossWall(Vector2 direction)
         {
-            if (direction == Vector2.zero)
+            if (direction != Vector2.zero)
             {
-                return;
+                var velocity = direction * _wallSpeed;
+                _wallMovement.TryRun(velocity);
             }
-
-            var velocity = direction * _wallSpeed;
-            _wallMovement.TryRun(velocity);
+            else
+            {
+                _wallMovement.TryStayAtRun();
+            }
         }
 
         public void Dash()
