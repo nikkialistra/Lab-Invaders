@@ -39,6 +39,16 @@ namespace Entities.Hero
 
         private void Update()
         {
+            if (_wallMovement.Running)
+            {
+                return;
+            }
+
+            UpdateAnimation();
+        }
+
+        private void UpdateAnimation()
+        {
             if (_physicsSolving.Falling)
             {
                 _animations.Fall();

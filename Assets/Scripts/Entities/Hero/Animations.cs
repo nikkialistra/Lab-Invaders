@@ -32,10 +32,12 @@ namespace Entities.Hero
             SetOrientation(moveDirection);
         }
 
-        public void WallRun(float moveDirection)
+        public void WallRun(Vector2 direction)
         {
+            SetOrientation(direction.x);
             _animator.SetBool(_wallRun, true);
-            SetOrientation(moveDirection);
+            _animator.SetFloat(_wallRunX, direction.x);
+            _animator.SetFloat(_wallRunY, direction.y);
         }
 
         private void SetOrientation(float orientation)

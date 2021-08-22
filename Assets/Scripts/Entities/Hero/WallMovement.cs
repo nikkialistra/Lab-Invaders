@@ -16,6 +16,7 @@ namespace Entities.Hero
         public Action RunStarted;
 
         public Vector2 CurrentVelocity { get; private set; }
+        public bool Running => CurrentVelocity != Vector2.zero;
 
         private bool _wasWallRun;
         private float _runStartTime;
@@ -41,7 +42,7 @@ namespace Entities.Hero
                 StartRun();
             }
             CurrentVelocity = direction;
-            _animations.WallRun(direction.x);
+            _animations.WallRun(CurrentVelocity);
             _stayStartTime = float.MaxValue;
             FinishRunUnderConditions();
         }
@@ -59,6 +60,7 @@ namespace Entities.Hero
             }
 
             CurrentVelocity = _stayFallSpeed;
+            _animations.WallRun(CurrentVelocity);
             FinishRunUnderConditions();
         }
 
