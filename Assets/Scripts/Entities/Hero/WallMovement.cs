@@ -143,6 +143,14 @@ namespace Entities.Hero
             RunStarted?.Invoke();
         }
 
+        public void TryFinishRun()
+        {
+            if (CurrentVelocity != Vector2.zero)
+            {
+                FinishRun();
+            }
+        }
+
         public void ResetWallRun()
         {
             _wasWallRun = false;

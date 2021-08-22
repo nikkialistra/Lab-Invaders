@@ -88,6 +88,7 @@ namespace Entities.Hero
 
         private void RunAcrossFloor(float direction)
         {
+            _wallMovement.TryFinishRun();
             var velocity = direction * _floorSpeed;
             _physicsSolving.MoveAcrossFloor(velocity);
             UpdateMoveAnimation(direction);

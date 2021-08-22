@@ -53,6 +53,10 @@ namespace Entities.Hero
         public void MoveAcrossWall(Vector2 velocity)
         {
             _wallVelocity = velocity;
+            if (_wallVelocity != Vector2.zero)
+            {
+                _floorVelocity = 0f;
+            }
         }
 
         private void ComputeVelocity()
@@ -78,7 +82,6 @@ namespace Entities.Hero
 
         private void AddWallVelocity()
         {
-            // Debug.Log(_velocity);
             _velocity = _wallVelocity;
         }
 

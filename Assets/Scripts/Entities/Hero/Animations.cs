@@ -34,6 +34,7 @@ namespace Entities.Hero
 
         public void WallRun(Vector2 direction)
         {
+            StopFall();
             SetOrientation(direction.x);
             _animator.SetBool(_wallRun, true);
             _animator.SetFloat(_wallRunX, direction.x);
@@ -83,6 +84,11 @@ namespace Entities.Hero
         public void Fall()
         {
             _animator.SetBool(_fall, true);
+        }
+
+        private void StopFall()
+        {
+            _animator.SetBool(_fall, false);
         }
 
         public void Land()
