@@ -21361,11 +21361,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _wallTilemap: {fileID: 562473040}
-  _upSpeedMultiplier: 0.1
+  _upSpeedMultiplier: 0.25
   _downSpeedMultiplier: 1.5
   _timeToRun: 1.2
   _timeToStay: 0.35
   _stayFallSpeed: {x: 0, y: -0.1}
+  _speedForStayMultiplier: 0.33
+  _inertiaMultiplier: 0.7
+  _directionChangePenalty: 0.3
 --- !u!1 &1897311209
 GameObject:
   m_ObjectHideFlags: 0

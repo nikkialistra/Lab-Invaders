@@ -28,12 +28,14 @@ namespace Entities.Hero
         {
             _physicsSolving.Ground += OnGround;
             _wallMovement.RunStarted += OnRunStarted;
+            _wallMovement.RunFinished += OnRunFinished;
         }
 
         private void OnDisable()
         {
             _physicsSolving.Ground -= OnGround;
             _wallMovement.RunStarted -= OnRunStarted;
+            _wallMovement.RunFinished -= OnRunFinished;
         }
 
         private void Update()
@@ -72,6 +74,11 @@ namespace Entities.Hero
         private void OnRunStarted()
         {
             _dashes.CancelDash();
+        }
+
+        private void OnRunFinished(float velocity)
+        {
+            _physicsSolving.AddInertia(velocity);
         }
 
         public void Run(Vector2 moveDirection)

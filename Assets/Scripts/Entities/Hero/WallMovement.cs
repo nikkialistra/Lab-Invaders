@@ -15,8 +15,14 @@ namespace Entities.Hero
         [SerializeField] private float _timeToRun;
         [SerializeField] private float _timeToStay;
         [SerializeField] private Vector2 _stayFallSpeed;
+        [Space]
+        [SerializeField] private float _speedForStayMultiplier;
+        [SerializeField] private float _inertiaMultiplier;
+        [Space]
+        [SerializeField] private float _directionChangePenalty;
 
         public Action RunStarted;
+        public Action<float> RunFinished;
 
         public Vector2 CurrentVelocity { get; private set; }
         public bool Running => CurrentVelocity != Vector2.zero;
@@ -25,6 +31,8 @@ namespace Entities.Hero
         private float _runStartTime;
         private float _stayStartTime = float.MaxValue;
         private bool _isRunTimeout;
+
+        private Vector2 _lastDirection;
 
         private Animations _animations;
 
@@ -46,9 +54,20 @@ namespace Entities.Hero
             }
 
             _animations.WallRun(direction);
+            FineForDirectionChange(direction);
             ComputeVelocity(direction);
+            
             _stayStartTime = float.MaxValue;
+            _lastDirection = direction;
             FinishRunUnderConditions();
+        }
+
+        private void FineForDirectionChange(Vector2 direction)
+        {
+            if (_lastDirection != direction)
+            {
+                _runStartTime -= _directionChangePenalty;
+            }
         }
 
         private void ComputeVelocity(Vector2 direction)
@@ -74,10 +93,9 @@ namespace Entities.Hero
             if (StayTimeNotStarted())
             {
                 _stayStartTime = Time.time;
+                CurrentVelocity *= _speedForStayMultiplier;
             }
-
-            _animations.WallRun(_stayFallSpeed);
-            CurrentVelocity = _stayFallSpeed;
+            
             FinishRunUnderConditions();
         }
 
@@ -131,6 +149,7 @@ namespace Entities.Hero
         private void FinishRun()
         {
             _isRunTimeout = true;
+            RunFinished?.Invoke(CurrentVelocity.x * _inertiaMultiplier);
             CurrentVelocity = Vector2.zero;
             _animations.StopWallRun();
         }

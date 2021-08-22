@@ -87,7 +87,15 @@ namespace Entities.Hero
 
         private void AddFloorVelocity()
         {
-            _velocity.x = _floorVelocity;
+            if (Grounded)
+            {
+                _velocity.x = _floorVelocity;
+            }
+        }
+
+        public void AddInertia(float velocity)
+        {
+            _velocity.x = velocity;
         }
 
         private void AddGravity()
