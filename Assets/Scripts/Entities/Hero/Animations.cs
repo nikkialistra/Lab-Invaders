@@ -6,6 +6,8 @@ namespace Entities.Hero
     [RequireComponent(typeof(SpriteRenderer))]
     public class Animations : MonoBehaviour
     {
+        public bool Idle => _animator.GetCurrentAnimatorStateInfo(0).IsName("Idle");
+        
         private Animator _animator;
         private SpriteRenderer _spriteRenderer;
 
