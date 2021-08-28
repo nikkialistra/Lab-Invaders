@@ -130,7 +130,11 @@ namespace Entities.Hero
         {
             if (_physicsSolving.Grounded)
             {
-                _dashes.Dash();
+                _dashes.FloorDash();
+            }
+            else
+            {
+                _dashes.WallDash();
             }
         }
     }

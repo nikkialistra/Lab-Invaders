@@ -13,9 +13,15 @@ namespace Entities.Hero
         
         private readonly int _run = Animator.StringToHash("run");
         private readonly int _fall = Animator.StringToHash("fall");
-        private readonly int _dash = Animator.StringToHash("dash");
+        
+        private readonly int _floorDash = Animator.StringToHash("floorDash");
         private readonly int _floorDashX = Animator.StringToHash("floorDashX");
         private readonly int _floorDashY = Animator.StringToHash("floorDashY");
+        
+        private readonly int _wallDash = Animator.StringToHash("wallDash");
+        private readonly int _wallDashX = Animator.StringToHash("wallDashX");
+        private readonly int _wallDashY = Animator.StringToHash("wallDashY");
+        
         private readonly int _wallRun = Animator.StringToHash("wallRun");
         private readonly int _wallRunX = Animator.StringToHash("wallRunX");
         private readonly int _wallRunY = Animator.StringToHash("wallRunY");
@@ -63,17 +69,26 @@ namespace Entities.Hero
             _animator.SetBool(_run, false);
         }
 
-        public void Dash(Vector2 direction)
+        public void FloorDash(Vector2 direction)
         {
             SetOrientation(direction.x);
-            _animator.SetBool(_dash, true);
+            _animator.SetBool(_floorDash, true);
             _animator.SetFloat(_floorDashX, direction.x);
             _animator.SetFloat(_floorDashY, direction.y);
         }
 
+        public void WallDash(Vector2 direction)
+        {
+            SetOrientation(direction.x);
+            _animator.SetBool(_wallDash, true);
+            _animator.SetFloat(_wallDashX, direction.x);
+            _animator.SetFloat(_wallDashY, direction.y);
+        }
+
         public void StopDash()
         {
-            _animator.SetBool(_dash, false);
+            _animator.SetBool(_floorDash, false);
+            _animator.SetBool(_wallDash, false);
         }
 
         public void StopWallRun()

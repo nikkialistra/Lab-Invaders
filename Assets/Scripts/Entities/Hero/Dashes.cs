@@ -10,17 +10,21 @@ namespace Entities.Hero
     {
         public Vector2 CurrentVelocity { get; private set; }
         
-        [SerializeField] private float _distance;
-        [SerializeField] private AnimationCurve _trajectory;
-        [SerializeField] private float _time;
-        [Space]
+        [SerializeField] private float _floorDashDistance;
+        [SerializeField] private AnimationCurve _floorDashTrajectory;
+        [SerializeField] private float _floorDashTime;
         [SerializeField] private float _alignThreshold;
-
+        [Space]
+        [SerializeField] private float _wallDashDistance;
+        [SerializeField] private AnimationCurve _wallDashTrajectory;
+        [SerializeField] private float _wallDashTime;
+        [SerializeField] private int _wallDashMaxNumber;
         [Space]
         [SerializeField] private Camera _camera;
 
         private bool _dashing;
-        
+        private int _wallDashNumber;
+
         private Rigidbody2D _rigidBody;
         private Animations _animations;
         private Coroutine _startDash;
@@ -31,16 +35,36 @@ namespace Entities.Hero
             _rigidBody = GetComponent<Rigidbody2D>();
         }
 
-        public void Dash()
+        public void FloorDash()
         {
             if (_dashing)
             {
                 return;
             }
-            
-            var direction = GetDirection();
-            _animations.Dash(direction);
-            _startDash = StartCoroutine(StartDash(direction));
+
+            ResetWallDashes();
+            var direction = GetFloorDashDirection();
+            _animations.FloorDash(direction);
+            _startDash = StartCoroutine(StartFloorDash(direction));
+        }
+
+        private void ResetWallDashes()
+        {
+            _wallDashNumber = 0;
+        }
+
+        public void WallDash()
+        {
+            if (_dashing || _wallDashNumber >= _wallDashMaxNumber)
+            {
+                return;
+            }
+
+            _wallDashNumber++;
+
+            var direction = GetWallDashDirection();
+            _animations.WallDash(direction);
+            _startDash = StartCoroutine(StartWallDash(direction));
         }
 
         public void CancelDash()
@@ -48,16 +72,24 @@ namespace Entities.Hero
             if (_dashing)
             {
                 StopCoroutine(_startDash);
-                StopDash();
+                StopFloorDash();
             }
         }
 
-        private Vector2 GetDirection()
+        private Vector2 GetFloorDashDirection()
         {
             var direction = GetHeroToCursor();
             direction = PruneDirectionsIntoFloor(direction);
             direction = Normalize(direction);
             direction = Align(direction);
+            direction = Normalize(direction);
+            direction = СhangeExceptionalDirectionToRight(direction);
+            return direction;
+        }
+
+        private Vector2 GetWallDashDirection()
+        {
+            var direction = GetHeroToCursor();
             direction = Normalize(direction);
             direction = СhangeExceptionalDirectionToRight(direction);
             return direction;
@@ -104,42 +136,74 @@ namespace Entities.Hero
             return heroToCursor;
         }
 
-        private IEnumerator StartDash(Vector2 direction)
+        private IEnumerator StartFloorDash(Vector2 direction)
         {
             _dashing = true;
             
             var time = 0f;
             var lastPosition = Vector2.zero;
-            while (time <= _time)
+            while (time <= _floorDashTime)
             {
-                var position = ComputePosition(direction, time);
+                var position = ComputeFloorDashPosition(direction, time);
                 UpdateVelocity(position, ref lastPosition);
 
                 yield return new WaitForFixedUpdate();
                 time += Time.fixedDeltaTime;
             }
-            StopDash();
+            StopFloorDash();
         }
 
-        private Vector2 ComputePosition(Vector2 direction, float time)
+        private Vector2 ComputeFloorDashPosition(Vector2 direction, float time)
         {
-            var progress = time / _time;
-            var delta = _distance * _trajectory.Evaluate(progress);
+            var progress = time / _floorDashTime;
+            var delta = _floorDashDistance * _floorDashTrajectory.Evaluate(progress);
             var position = direction * delta;
             return position;
+        }
+
+        private void StopFloorDash()
+        {
+            CurrentVelocity = Vector2.zero;
+            _animations.StopDash();
+            _dashing = false;
+        }
+        
+        private IEnumerator StartWallDash(Vector2 direction)
+        {
+            _dashing = true;
+            
+            var time = 0f;
+            var lastPosition = Vector2.zero;
+            while (time <= _wallDashTime)
+            {
+                var position = ComputeWallDashPosition(direction, time);
+                UpdateVelocity(position, ref lastPosition);
+
+                yield return new WaitForFixedUpdate();
+                time += Time.fixedDeltaTime;
+            }
+            StopWallDash();
+        }
+
+        private Vector2 ComputeWallDashPosition(Vector2 direction, float time)
+        {
+            var progress = time / _wallDashTime;
+            var delta = _wallDashDistance * _wallDashTrajectory.Evaluate(progress);
+            var position = direction * delta;
+            return position;
+        }
+
+        private void StopWallDash()
+        {
+            CurrentVelocity = Vector2.zero;
+            _animations.StopDash();
+            _dashing = false;
         }
 
         private void UpdateVelocity(Vector2 position, ref Vector2 lastPosition)
         {
             CurrentVelocity = (position - lastPosition) / Time.fixedDeltaTime;
             lastPosition = position;
-        }
-
-        private void StopDash()
-        {
-            CurrentVelocity = Vector2.zero;
-            _animations.StopDash();
-            _dashing = false;
         }
     }
 }
