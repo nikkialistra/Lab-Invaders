@@ -26,6 +26,30 @@ TextureImporter:
   - first:
       213: 7366566666408259574
     second: HeroWallRun_7
+  - first:
+      213: -3787251197213479609
+    second: HeroWallRunSide_0
+  - first:
+      213: 4207087512440469643
+    second: HeroWallRunSide_1
+  - first:
+      213: 6767954805213742835
+    second: HeroWallRunSide_2
+  - first:
+      213: 3008940584469835101
+    second: HeroWallRunSide_3
+  - first:
+      213: -1763348197453132760
+    second: HeroWallRunSide_4
+  - first:
+      213: -5487883849258643890
+    second: HeroWallRunSide_5
+  - first:
+      213: -4646337238330242138
+    second: HeroWallRunSide_6
+  - first:
+      213: 4460541665152323150
+    second: HeroWallRunSide_7
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -115,169 +139,169 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: HeroWallRun_0
+      name: HeroWallRunSide_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 64
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.203125}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 12b10db229458b140800000000000000
-      internalID: 4735627994957093665
+      spriteID: 74deae21a1bf07bc0800000000000000
+      internalID: -3787251197213479609
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: HeroWallRun_1
-      rect:
-        serializedVersion: 2
-        x: 32
-        y: 0
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 2a9071eb2b6a3ae60800000000000000
-      internalID: 7972399051999480226
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: HeroWallRun_2
+      name: HeroWallRunSide_1
       rect:
         serializedVersion: 2
         x: 64
         y: 0
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 64
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.203125}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 933f04bf7408ce160800000000000000
-      internalID: 7056155762829095737
+      spriteID: b88fefd6dc3926a30800000000000000
+      internalID: 4207087512440469643
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: HeroWallRun_3
-      rect:
-        serializedVersion: 2
-        x: 96
-        y: 0
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: b2eee3694ab924f80800000000000000
-      internalID: -8123759646625305045
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: HeroWallRun_4
+      name: HeroWallRunSide_2
       rect:
         serializedVersion: 2
         x: 128
         y: 0
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 64
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.203125}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 039659d1edf3732a0800000000000000
-      internalID: -6757862492634519248
+      spriteID: 3f6c9a4890b9ced50800000000000000
+      internalID: 6767954805213742835
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: HeroWallRun_5
-      rect:
-        serializedVersion: 2
-        x: 160
-        y: 0
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 05c3dfb356ff58560800000000000000
-      internalID: 7315533979996470352
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: HeroWallRun_6
+      name: HeroWallRunSide_3
       rect:
         serializedVersion: 2
         x: 192
         y: 0
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 64
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.203125}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 27b2387c98598eed0800000000000000
-      internalID: -2384491583702357134
+      spriteID: d5da49ff487e1c920800000000000000
+      internalID: 3008940584469835101
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: HeroWallRun_7
+      name: HeroWallRunSide_4
       rect:
         serializedVersion: 2
-        x: 224
+        x: 256
         y: 0
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 64
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.203125}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6ff6f757a5d4b3660800000000000000
-      internalID: 7366566666408259574
+      spriteID: 82c0b7338245787e0800000000000000
+      internalID: -1763348197453132760
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroWallRunSide_5
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 0
+        width: 64
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.203125}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e4ec55417be17d3b0800000000000000
+      internalID: -5487883849258643890
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroWallRunSide_6
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 0
+        width: 64
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.203125}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6ab08aa26e4e48fb0800000000000000
+      internalID: -4646337238330242138
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroWallRunSide_7
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 0
+        width: 64
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.203125}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e4ecb31f20707ed30800000000000000
+      internalID: 4460541665152323150
       vertices: []
       indices: 
       edges: []
